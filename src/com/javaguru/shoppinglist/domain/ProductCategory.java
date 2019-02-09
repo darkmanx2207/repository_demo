@@ -1,4 +1,4 @@
-package com.javaguru.shoppinglist;
+package com.javaguru.shoppinglist.domain;
 
 public enum ProductCategory {
 
@@ -7,7 +7,6 @@ public enum ProductCategory {
     MILK,
     SWEETS,
     VEGETABLES;
-
 
 
 }

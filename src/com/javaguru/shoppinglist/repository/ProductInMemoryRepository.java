@@ -8,13 +8,13 @@ import java.util.Map;
 public class ProductInMemoryRepository {
 
     private Map<Long, Product> database = new HashMap<>();
-    private Long PRODUCT_ID_SEQUENCE = 0L;
+    private Long productIdSequence = 0L;
 
 
     public Product create(Product product) {
-        product.setId(PRODUCT_ID_SEQUENCE);
-        database.put(PRODUCT_ID_SEQUENCE, product);
-        PRODUCT_ID_SEQUENCE++;
+        product.setId(productIdSequence);
+        database.put(productIdSequence, product);
+        productIdSequence++;
         return product;
     }
 

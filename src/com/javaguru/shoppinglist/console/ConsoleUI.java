@@ -35,35 +35,54 @@ public class ConsoleUI {
         }
     }
 
-    public void createProduct() {
+    private String readProductName() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter product name:");
         String name = scanner.nextLine();
-        System.out.println("Enter product price: ");
+        return name;
+    }
+
+    private BigDecimal readProductPrice() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter product price:");
         String price = scanner.nextLine();
-        System.out.println("Enter product discount");
+        return new BigDecimal(price);
+    }
+
+    private BigDecimal readProductDiscount() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter product discount:");
         String discount = scanner.nextLine();
-        System.out.println("Enter product category");
+        return new BigDecimal(discount);
+    }
+
+    private ProductCategory readProductCategory() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter product category:");
         String productCategory = scanner.nextLine();
-        System.out.println("Enter product description");
+        return ProductCategory.valueOf(productCategory);
+    }
+
+    private String readProductDescription() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter product description:");
         String description = scanner.nextLine();
+        return description;
+    }
 
-        Product product = new Product(new BigDecimal(discount), ProductCategory.valueOf(productCategory), new String(description));
-
-        product.setProductCategory(ProductCategory.valueOf(productCategory));
-        product.setName(name);
-        product.setPrice(new BigDecimal(price));
-        product.setDiscount(new BigDecimal(discount));
-        product.setDescription();
+    public void createProduct() {
+        Product product = new Product();
+        product.setName(readProductName());
+        product.setPrice(readProductPrice());
+        product.setDiscount(readProductDiscount());
+        product.setProductCategory(readProductCategory());
+        product.setDescription(readProductDescription());
         product.discountPrice();
-
         try {
             Long response = productService.createProduct(product);
             System.out.println("Response: " + response);
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
-
         }
     }
 
@@ -74,26 +93,4 @@ public class ConsoleUI {
         Product response = productService.findProductbyId(id);
         System.out.println("Response: " + response);
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -14,7 +14,6 @@ public class ProductValidationService {
         validationRules.add(new ProductPriceValidationRule());
         validationRules.add(new ProductDescriptionValidationRule());
     }
-
     public void validate(Product product) {
         validationRules.forEach(s -> s.validate(product));
         validationRules.forEach(s -> s.checkNotNull(product));

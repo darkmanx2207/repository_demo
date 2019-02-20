@@ -11,5 +11,4 @@ public interface ProductValidationRule {
             throw new ValidationException("Product must be not null!!!");
         }
     }
-
 }

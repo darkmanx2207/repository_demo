@@ -7,8 +7,9 @@ import java.util.Map;
 
 public class ProductInMemoryRepository {
 
-    private Map<Long, Product> database = new HashMap<>();
     private Long productIdSequence = 0L;
+
+    public Map<Long, Product> database = new HashMap<>();
 
     public Product create(Product product) {
         product.setId(productIdSequence);

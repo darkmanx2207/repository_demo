@@ -2,13 +2,15 @@ package com.javaguru.shoppinglist.console;
 
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.domain.ProductCategory;
+import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
 import com.javaguru.shoppinglist.service.ProductService;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ConsoleUI {
-
     private ProductService productService = new ProductService();
 
     public void execute() {
@@ -34,8 +36,8 @@ public class ConsoleUI {
             }
         }
     }
-
-    private String readProductName() {
+    
+    public String readProductName() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter product name:");
         String name = scanner.nextLine();

@@ -4,8 +4,6 @@ import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
 import com.javaguru.shoppinglist.service.validation.ProductValidationService;
 
-import static org.mockito.ArgumentMatchers.anyMap;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.junit.Assert.*;
@@ -19,7 +17,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-
 public class ProductServiceTest {
     @Mock
     private ProductInMemoryRepository repository;
@@ -29,24 +26,23 @@ public class ProductServiceTest {
     private ProductService victim;
     @Captor
     private ArgumentCaptor<Product> productCaptor;
+
     @Test
-    public void shouldFindProduct(){
-        Product product =  product();
+    public void shouldFindProduct() {
+        Product product = product();
         when(repository.create(product)).thenReturn(product);
         Long result = victim.createProduct(product);
         verify(validationService).validate(productCaptor.capture());
         Product captorResult = productCaptor.getValue();
-        assertEquals(captorResult,product );
-        assertEquals(product.getId(),result );
-
+        assertEquals(captorResult, product);
+        assertEquals(product.getId(), result);
     }
-    private Product product(){
+
+    private Product product() {
         Product product = new Product();
         product.setName("TEST_NAME");
         product.setDescription("TEST_DESCRIPTION");
         product.setId(1001L);
         return product;
     }
-
-
 }

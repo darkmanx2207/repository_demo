@@ -11,7 +11,6 @@ public class ProductDescriptionValidationRuleTest {
     public final ExpectedException expectedException = ExpectedException.none();
     private ProductDescriptionValidationRule victim = new ProductDescriptionValidationRule();
     private Product input1;
-    private Product input2;
 
     @Test
     public void shouldThrowValidationException() {
@@ -25,12 +24,12 @@ public class ProductDescriptionValidationRuleTest {
 
     @Test
     public void checkNotNull() {
-        input2 = product(null);
+        input1 = product(null);
 
         expectedException.expect(ValidationException.class);
         expectedException.expectMessage("Product description must be not null!!!");
 
-        victim.checkNotNull(input2);
+        victim.checkNotNull(input1);
     }
 
     private Product product(String description) {

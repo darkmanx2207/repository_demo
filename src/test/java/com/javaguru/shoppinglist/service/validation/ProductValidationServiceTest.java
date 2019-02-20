@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.domain.ProductCategory;
 
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -23,8 +24,6 @@ import java.math.BigDecimal;
 public class ProductValidationServiceTest {
     @Mock
     private ProductValidationRule rule;
-    @Mock
-    private Product pr;
     @Captor
     private ArgumentCaptor<Product> captor;
 

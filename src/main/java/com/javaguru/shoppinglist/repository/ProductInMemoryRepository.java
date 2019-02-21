@@ -21,4 +21,8 @@ public class ProductInMemoryRepository {
     public Product findBy(Long id) {
         return database.get(id);
     }
+    public boolean existByName(String name){
+        return database.values().stream()
+                .anyMatch(product -> product.getName().equalsIgnoreCase(name));
+    }
 }

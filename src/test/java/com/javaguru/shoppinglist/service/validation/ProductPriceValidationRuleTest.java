@@ -1,46 +1,42 @@
 package com.javaguru.shoppinglist.service.validation;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import com.javaguru.shoppinglist.domain.Product;
 
 import org.junit.Test;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
 
 import java.math.BigDecimal;
 
 public class ProductPriceValidationRuleTest {
-    @Rule
-    public final ExpectedException expectedException = ExpectedException.none();
     private ProductPriceValidationRule victim = new ProductPriceValidationRule();
-    private Product input1;
-    private Product input2;
-    private Product input3;
+    private Product input;
 
     @Test
     public void shouldThrowValidationException() {
-        input1 = product(BigDecimal.ZERO);
-        expectedException.expect(ValidationException.class);
-        expectedException.expectMessage("Price must be more than zero!!!");
+        input = product(BigDecimal.ZERO);
 
-        victim.validate(input1);
+        assertThatThrownBy(() -> victim.validate(input))
+                .isInstanceOf(ValidationException.class)
+                .hasMessage("Price must be more than zero.");
     }
 
     @Test
     public void shouldThrowDiscountValidationException() {
-        input2 = product(BigDecimal.valueOf(19));
-        expectedException.expect(ValidationException.class);
-        expectedException.expectMessage("Discount can't be made if price less than 20!!!");
+        input = product(BigDecimal.valueOf(19));
 
-        victim.validate(input2);
+        assertThatThrownBy(() -> victim.validate(input))
+                .isInstanceOf(ValidationException.class)
+                .hasMessage("Discount can't be made if price less than 20.");
     }
 
     @Test
     public void checkNotNull() {
-        input3 = product(null);
-        expectedException.expect(ValidationException.class);
-        expectedException.expectMessage("Product price must be not null!!!");
+        input = product(null);
 
-        victim.checkNotNull(input3);
+        assertThatThrownBy(() -> victim.checkNotNull(input))
+                .isInstanceOf(ValidationException.class)
+                .hasMessage("Product price must be not null.");
     }
 
     private Product product(BigDecimal price) {

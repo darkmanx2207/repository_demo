@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Set;
 
 @RunWith(MockitoJUnitRunner.class)
-
 public class ProductValidationServiceTest {
     @Mock
     private ProductUniqueNameValidationRule productUniqueNameValidationRule;
@@ -36,7 +35,6 @@ public class ProductValidationServiceTest {
     private ProductPriceValidationRule productPriceValidationRule;
     @Captor
     private ArgumentCaptor<Product> captor;
-
     private ProductValidationService victim;
     private Product input = product();
 
@@ -51,7 +49,6 @@ public class ProductValidationServiceTest {
 
         victim = new ProductValidationService(rules);
     }
-
 
     @Test
     public void shouldValidate() {

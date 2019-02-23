@@ -2,17 +2,21 @@ package com.javaguru.shoppinglist.console;
 
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.domain.ProductCategory;
+import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
 import com.javaguru.shoppinglist.service.ProductService;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class ConsoleUI {
-
+    ShoppingCart shoppingCart = new ShoppingCart();
+    ProductInMemoryRepository memory= new ProductInMemoryRepository();
     private final ProductService productService;
+
 
     public ConsoleUI(ProductService productService) {
         this.productService = productService;
+
     }
 
     public void execute() {
@@ -22,6 +26,7 @@ public class ConsoleUI {
                 System.out.println("1. Find by ID");
                 System.out.println("2. Create Product");
                 System.out.println("3. Exit");
+                System.out.println("4. Shopping cart");
                 int userInput = scanner.nextInt();
                 switch (userInput) {
                     case 1:
@@ -32,6 +37,9 @@ public class ConsoleUI {
                         break;
                     case 3:
                         return;
+                    case 4:
+                        shoppingCart.executeShoppingCart();
+                        break;
                 }
             } catch (Exception e) {
                 System.out.println("Error! Please try again.");

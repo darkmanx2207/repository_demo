@@ -1,60 +1,70 @@
 package com.javaguru.shoppinglist.console;
 
 import com.javaguru.shoppinglist.domain.Product;
-import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
+import com.javaguru.shoppinglist.service.CartService;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class ShoppingCart {
-    public Map<Long, Product> cartList = new HashMap<>();
-    private Long id = 0L;
-    ProductInMemoryRepository memoryRepository = new ProductInMemoryRepository();
+    private final CartService cartService;
+
+    public ShoppingCart(CartService cartService) {
+        this.cartService = cartService;
+    }
 
     public void executeShoppingCart() {
         while (true) {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("1. add product");
-            System.out.println("2. product list");
-            System.out.println("3. total cost of all product");
-            System.out.println("4. remove product from cart");
-            System.out.println("5. exit");
-            int userInput = scanner.nextInt();
-            switch (userInput) {
-                case 1:
-                    addProduct();
-                    break;
-                case 2:
-                    showCartList();
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    return;
+            try {
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("1. add product");
+                System.out.println("2. product list");
+                System.out.println("3. total cost of all products");
+                System.out.println("4. remove product from cart");
+                System.out.println("5. exit");
+                int userInput = scanner.nextInt();
+                switch (userInput) {
+                    case 1:
+                        addProduct();
+                        break;
+                    case 2:
+                        showCartList();
+                        break;
+                    case 3:
+                        sumOfAllProducts();
+                        break;
+                    case 4:
+                        removeProduct();
+                        break;
+                    case 5:
+                        return;
+                }
+            } catch (Exception e) {
+                System.out.println("Error! Please try again.");
             }
         }
     }
 
-    public Product addProduct() {
-        Product product = new Product();
+    public void addProduct() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter product name :");
         String name = scanner.nextLine();
-
-        for(Map.Entry<Long,Product> list:memoryRepository.getDatabase().entrySet()){
-            if(list.getValue().getName().equals(name)){
-                System.out.println("aaaaaaaa");
-                cartList.put(id, list.setValue(product));
-            }
-        }
-        System.out.println(cartList.entrySet());
-        return product;
+        String findedProduct = cartService.findProductByName(name);
+        System.out.println("Product : " + findedProduct);
     }
 
-    public void showCartList(){
-        System.out.println(cartList.entrySet());
+    public void showCartList() {
+        cartService.getCart();
     }
 
+    public void removeProduct() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter product id :");
+        Long id = scanner.nextLong();
+        Product findedProduct = cartService.removeProductByName(id);
+        System.out.println("Remove product : " + findedProduct);
+    }
+
+    public void sumOfAllProducts() {
+        System.out.println("Sum of all prices : " + cartService.sumOfCartPrices());
+    }
 }

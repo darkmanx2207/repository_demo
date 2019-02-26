@@ -2,19 +2,17 @@ package com.javaguru.shoppinglist.console;
 
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.domain.ProductCategory;
-import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
 import com.javaguru.shoppinglist.service.ProductService;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class ConsoleUI {
-    ShoppingCart shoppingCart = new ShoppingCart();
-    ProductInMemoryRepository memory= new ProductInMemoryRepository();
+    private final ShoppingCart shoppingCart;
     private final ProductService productService;
 
-
-    public ConsoleUI(ProductService productService) {
+    public ConsoleUI(ShoppingCart shoppingCart, ProductService productService) {
+        this.shoppingCart = shoppingCart;
         this.productService = productService;
 
     }

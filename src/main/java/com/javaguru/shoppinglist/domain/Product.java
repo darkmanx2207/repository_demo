@@ -12,6 +12,10 @@ public class Product {
     private BigDecimal discount;
     private ProductCategory productCategory;
 
+    public BigDecimal getActualPrice(){
+        return actualPrice;
+    }
+
     public String getDescription() {
         return description;
     }

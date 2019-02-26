@@ -1,7 +1,10 @@
 package com.javaguru.shoppinglist;
 
 import com.javaguru.shoppinglist.console.ConsoleUI;
+import com.javaguru.shoppinglist.console.ShoppingCart;
+import com.javaguru.shoppinglist.repository.CartMemoryRepository;
 import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
+import com.javaguru.shoppinglist.service.CartService;
 import com.javaguru.shoppinglist.service.ProductService;
 import com.javaguru.shoppinglist.service.validation.ProductDescriptionValidationRule;
 import com.javaguru.shoppinglist.service.validation.ProductDiscountValidationRule;
@@ -32,10 +35,13 @@ class ShoppingListApplication {
         rules.add(productDiscountValidationRule);
         rules.add(productPriceValidationRule);
 
+        CartMemoryRepository cartMemoryRepository = new CartMemoryRepository(repository);
+        CartService cartService = new CartService(cartMemoryRepository);
         ProductValidationService validationService = new ProductValidationService(rules);
         ProductService productService = new ProductService(repository, validationService);
+        ShoppingCart shoppingCart = new ShoppingCart(cartService);
 
-        ConsoleUI ui = new ConsoleUI(productService);
+        ConsoleUI ui = new ConsoleUI(shoppingCart, productService);
         ui.execute();
     }
 }

@@ -8,10 +8,10 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class ConsoleUI {
-    private final ShoppingCart shoppingCart;
+    private final ShoppingCartConsoleUI shoppingCart;
     private final ProductService productService;
 
-    public ConsoleUI(ShoppingCart shoppingCart, ProductService productService) {
+    public ConsoleUI(ShoppingCartConsoleUI shoppingCart, ProductService productService) {
         this.shoppingCart = shoppingCart;
         this.productService = productService;
 

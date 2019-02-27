@@ -1,45 +1,52 @@
 package com.javaguru.shoppinglist.repository;
 
 import com.javaguru.shoppinglist.domain.Product;
+import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.service.validation.ValidationException;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CartMemoryRepository {
     private final ProductInMemoryRepository memoryRepository;
 
-    private Long productIdSequence = 0L;
-
-    public Map<Long, Product> cartbase = new HashMap<>();
+    public Set<ShoppingCart> cartbase = new HashSet<>();
 
     public CartMemoryRepository(ProductInMemoryRepository memoryRepository) {
         this.memoryRepository = memoryRepository;
-    }
 
-    public String findProductByName(String name) {
+
+    }
+    // public ShoppingCart addShoppingCart(ShoppingCart shoppingCart){
+      ///  cartbase.add(shoppingCart);
+      //  return shoppingCart;
+    // }
+
+    public String createCart(String name) {
         for (Product list : memoryRepository.database.values()) {
-            if (list.getName().equals(name)) {
-                cartbase.put(productIdSequence++, list);
-            } else {
-                throw new ValidationException("Incorretly introduced product.");
-            }
-        }
-        if (memoryRepository.database.isEmpty()) {
-            throw new ValidationException("incorrectly introduced product.");
-        }
 
+            ShoppingCart shoppingCart = new ShoppingCart();
+            if (list.getName().equals(name)) {
+
+
+            }
+
+        }
         return name;
+
     }
+
 
     public void getCart() {
-        System.out.println(cartbase.entrySet());
+        System.out.println(cartbase);
     }
 
-    public Product removeProductByName(Long id) {
-        for (Product list : memoryRepository.database.values()) {
-            if (list.getId().equals(id)) {
+    public String removeProductByName(String name) {
+        for (ShoppingCart list : cartbase) {//
+            if (list.getName().equals(name)) {
                 cartbase.remove(list);
             } else {
                 throw new ValidationException("Incorretly introduced id.");
@@ -48,13 +55,13 @@ public class CartMemoryRepository {
         if (memoryRepository.database.isEmpty()) {
             throw new ValidationException("Incorretly introduced id.");
         }
-        return cartbase.remove(id);
+        return name;
     }
 
     public BigDecimal sumOfCartPrices() {
         BigDecimal price = BigDecimal.ZERO;
-        for (Product list : memoryRepository.database.values()) {
-            price = price.add(list.getActualPrice());
+        for (ShoppingCart list : cartbase) {//
+            // price = price.add();//
         }
         return price;
     }

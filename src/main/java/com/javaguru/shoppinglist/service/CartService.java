@@ -12,16 +12,16 @@ public class CartService {
         this.repository = repository;
     }
 
-    public String findProductByName(String name) {
-        return repository.findProductByName(name);
+    public String createCart(String name) {
+        return repository.createCart(name);
     }
 
     public void getCart() {
         repository.getCart();
     }
 
-    public Product removeProductByName(Long id) {
-        return repository.removeProductByName(id);
+    public String removeProductByName(String name) {
+        return repository.removeProductByName(name);
     }
 
     public BigDecimal sumOfCartPrices() {

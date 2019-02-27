@@ -1,14 +1,15 @@
 package com.javaguru.shoppinglist.console;
 
 import com.javaguru.shoppinglist.domain.Product;
+import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.service.CartService;
 
 import java.util.Scanner;
 
-public class ShoppingCart {
+public class ShoppingCartConsoleUI {
     private final CartService cartService;
 
-    public ShoppingCart(CartService cartService) {
+    public ShoppingCartConsoleUI(CartService cartService) {
         this.cartService = cartService;
     }
 
@@ -16,26 +17,30 @@ public class ShoppingCart {
         while (true) {
             try {
                 Scanner scanner = new Scanner(System.in);
-                System.out.println("1. add product");
-                System.out.println("2. product list");
-                System.out.println("3. total cost of all products");
-                System.out.println("4. remove product from cart");
-                System.out.println("5. exit");
+                System.out.println("1. create shopping cart name");
+                System.out.println("2. add cart");
+                System.out.println("3. product list");
+                System.out.println("4. total cost of all products");
+                System.out.println("5. remove product from cart");
+                System.out.println("6. exit");
                 int userInput = scanner.nextInt();
                 switch (userInput) {
                     case 1:
-                        addProduct();
-                        break;
+                       readCartName();
+                       break;
                     case 2:
-                        showCartList();
+                        createCart();
                         break;
                     case 3:
-                        sumOfAllProducts();
+                        showCartList();
                         break;
                     case 4:
-                        removeProduct();
+                        sumOfAllProducts();
                         break;
                     case 5:
+                        removeProduct();
+                        break;
+                    case 6:
                         return;
                 }
             } catch (Exception e) {
@@ -43,12 +48,20 @@ public class ShoppingCart {
             }
         }
     }
+    private String readCartName() {
+       // ShoppingCart shoppingCart = new ShoppingCart();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter cart name:");
+        String name = scanner.nextLine();
+       // shoppingCart.setName(name);
+        return name;
+    }
 
-    public void addProduct() {
+    public void createCart() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter product name :");
         String name = scanner.nextLine();
-        String findedProduct = cartService.findProductByName(name);
+        String findedProduct = cartService.createCart(name);
         System.out.println("Product : " + findedProduct);
     }
 
@@ -58,9 +71,9 @@ public class ShoppingCart {
 
     public void removeProduct() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter product id :");
-        Long id = scanner.nextLong();
-        Product findedProduct = cartService.removeProductByName(id);
+        System.out.println("Enter product name :");
+        String name = scanner.nextLine();
+        String findedProduct = cartService.removeProductByName(name);
         System.out.println("Remove product : " + findedProduct);
     }
 

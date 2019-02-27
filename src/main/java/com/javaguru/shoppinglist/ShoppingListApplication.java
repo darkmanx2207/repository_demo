@@ -1,7 +1,7 @@
 package com.javaguru.shoppinglist;
 
 import com.javaguru.shoppinglist.console.ConsoleUI;
-import com.javaguru.shoppinglist.console.ShoppingCart;
+import com.javaguru.shoppinglist.console.ShoppingCartConsoleUI;
 import com.javaguru.shoppinglist.repository.CartMemoryRepository;
 import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
 import com.javaguru.shoppinglist.service.CartService;
@@ -39,7 +39,7 @@ class ShoppingListApplication {
         CartService cartService = new CartService(cartMemoryRepository);
         ProductValidationService validationService = new ProductValidationService(rules);
         ProductService productService = new ProductService(repository, validationService);
-        ShoppingCart shoppingCart = new ShoppingCart(cartService);
+        ShoppingCartConsoleUI shoppingCart = new ShoppingCartConsoleUI(cartService);
 
         ConsoleUI ui = new ConsoleUI(shoppingCart, productService);
         ui.execute();

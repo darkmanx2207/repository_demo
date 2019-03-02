@@ -14,7 +14,7 @@ public class ProductPriceValidationRuleTest {
 
     @Test
     public void shouldThrowValidationException() {
-        input = product(BigDecimal.ZERO);
+        input = productPriceZero(BigDecimal.valueOf(0));
 
         assertThatThrownBy(() -> victim.validate(input))
                 .isInstanceOf(ValidationException.class)
@@ -23,7 +23,7 @@ public class ProductPriceValidationRuleTest {
 
     @Test
     public void shouldThrowDiscountValidationException() {
-        input = product(BigDecimal.valueOf(19));
+        input = product();
 
         assertThatThrownBy(() -> victim.validate(input))
                 .isInstanceOf(ValidationException.class)
@@ -32,14 +32,21 @@ public class ProductPriceValidationRuleTest {
 
     @Test
     public void checkNotNull() {
-        input = product(null);
+        input = productPriceZero(null);
 
         assertThatThrownBy(() -> victim.checkNotNull(input))
                 .isInstanceOf(ValidationException.class)
                 .hasMessage("Product price must be not null.");
     }
 
-    private Product product(BigDecimal price) {
+    private Product product() {
+        Product product = new Product();
+        product.setDiscount(BigDecimal.valueOf(5));
+        product.setPrice(BigDecimal.valueOf(15));
+        return product;
+    }
+
+    private Product productPriceZero(BigDecimal price) {
         Product product = new Product();
         product.setPrice(price);
         return product;

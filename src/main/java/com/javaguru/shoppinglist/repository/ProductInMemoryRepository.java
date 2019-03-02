@@ -2,9 +2,12 @@ package com.javaguru.shoppinglist.repository;
 
 import com.javaguru.shoppinglist.domain.Product;
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class ProductInMemoryRepository {
 
     private Long productIdSequence = 0L;
@@ -21,7 +24,8 @@ public class ProductInMemoryRepository {
     public Product findBy(Long id) {
         return database.get(id);
     }
-    public boolean existByName(String name){
+
+    public boolean existByName(String name) {
         return database.values().stream()
                 .anyMatch(product -> product.getName().equalsIgnoreCase(name));
     }

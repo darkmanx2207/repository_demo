@@ -7,6 +7,8 @@ import com.javaguru.shoppinglist.service.validation.ProductValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 public class ProductService {
     private final ProductInMemoryRepository repository;
@@ -26,5 +28,8 @@ public class ProductService {
 
     public Product findProductbyId(Long id) {
         return repository.findBy(id);
+    }
+    public ProductInMemoryRepository getBase(){
+        return repository;
     }
 }

@@ -2,6 +2,7 @@ package com.javaguru.shoppinglist.console;
 
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.domain.ProductCategory;
+import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,14 @@ import java.util.Scanner;
 public class ConsoleUI {
 
     private final ProductService productService;
+    private final ShoppingCartConsoleUI shoppingCartConsoleUI;
+
 
     @Autowired
-    public ConsoleUI(ProductService productService) {
+    public ConsoleUI(ProductService productService, ShoppingCartConsoleUI shoppingCartConsoleUI) {
         this.productService = productService;
+        this.shoppingCartConsoleUI = shoppingCartConsoleUI;
+
     }
 
     public void execute() {
@@ -26,7 +31,8 @@ public class ConsoleUI {
             try {
                 System.out.println("1. Find by ID");
                 System.out.println("2. Create Product");
-                System.out.println("3. Exit");
+                System.out.println("3. Create Shopping cart");
+                System.out.println("4. Exit");
                 int userInput = scanner.nextInt();
                 switch (userInput) {
                     case 1:
@@ -36,6 +42,8 @@ public class ConsoleUI {
                         createProduct();
                         break;
                     case 3:
+                        shoppingCartConsoleUI.executeShoppingCart();
+                    case 4:
                         return;
                 }
             } catch (Exception e) {

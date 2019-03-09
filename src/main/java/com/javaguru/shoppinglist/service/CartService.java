@@ -3,6 +3,7 @@ package com.javaguru.shoppinglist.service;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.repository.CartInMemoryRepository;
+import com.javaguru.shoppinglist.service.validation.shoppingCartValidation.ShoppingCartValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,42 +11,40 @@ import org.springframework.stereotype.Component;
 public class CartService {
     private final CartInMemoryRepository memoryRepository;
     private final ProductService productService;
-    private  ShoppingCart shoppingCart;
+    private final ShoppingCartValidationService shoppingCartValidationService;
 
     @Autowired
-    public CartService(CartInMemoryRepository memoryRepository, ProductService productService, ShoppingCart shoppingCart) {
+    public CartService(CartInMemoryRepository memoryRepository, ProductService productService, ShoppingCartValidationService shoppingCartValidationService) {
         this.memoryRepository = memoryRepository;
         this.productService = productService;
-        this.shoppingCart = shoppingCart;
+        this.shoppingCartValidationService = shoppingCartValidationService;
     }
 
-    public Long createCart(ShoppingCart shoppingCart) {//////String name) {
+    public Long createCart(ShoppingCart shoppingCart) {
+        shoppingCartValidationService.validate(shoppingCart);
         ShoppingCart createdCart = memoryRepository.create(shoppingCart);
         return createdCart.getId();
     }
 
-    public String addProductInCart(String name,Product product) {
-        //ShoppingCart shoppingCart = new ShoppingCart();
-       // Product product = new Product();
-        for (Product list : productService.getBase().database.values()) {
-            if (list.getName().equals(name)) {
-                shoppingCart.setCartProductList(list);
-                System.out.println(list);
-                memoryRepository.cart.add(shoppingCart);
-
-                System.out.println(memoryRepository.cart);//
-
-            }
-        }
+    public String addProductInCart(String name, ShoppingCart shoppingCart) {
+        Product product = productService.findByName(name);
+        shoppingCart.addProduct(product);
         return name;
     }
+
+    public void showCarts() {
+        memoryRepository.showShoppingCart();
+    }
+
+    public ShoppingCart findCartByName(String name) {
+        return memoryRepository.findByName(name);
+    }
+
+    public void getPrice(ShoppingCart shoppingCart) {
+        shoppingCart.sumOfAllProducts();
+    }
+
+    public String removeCartByname(String name) {
+        return memoryRepository.removeCartByName(name);
+    }
 }
-
-
-// public Object showCarts() {
-//      return memoryRepository.showCarts();
-// }
-
-
-
-

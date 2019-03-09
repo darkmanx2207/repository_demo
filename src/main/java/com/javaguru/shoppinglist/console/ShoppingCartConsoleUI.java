@@ -1,6 +1,5 @@
 package com.javaguru.shoppinglist.console;
 
-import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.service.CartService;
 import org.springframework.stereotype.Component;
@@ -10,13 +9,9 @@ import java.util.Scanner;
 @Component
 public class ShoppingCartConsoleUI {
     private final CartService cartService;
-    private ShoppingCart shoppingCart;
-   // ShoppingCart shoppingCart = new ShoppingCart();
-    //Product product = new Product();
 
-    public ShoppingCartConsoleUI(CartService cartService, ShoppingCart shoppingCart) {
+    public ShoppingCartConsoleUI(CartService cartService) {
         this.cartService = cartService;
-        this.shoppingCart = shoppingCart;
     }
 
     public void executeShoppingCart() {
@@ -26,26 +21,25 @@ public class ShoppingCartConsoleUI {
                 System.out.println("1. create shopping cart");
                 System.out.println("2. add product");
                 System.out.println("3. show shopping cart");
-                System.out.println("4. total cost of all prod1ucts");
-                System.out.println("5. remove product from cart");
+                System.out.println("4. total cost of products in cart");
+                System.out.println("5. remove cart");
                 System.out.println("6. exit");
                 int userInput = scanner.nextInt();
                 switch (userInput) {
                     case 1:
-                        createCart();
+                        createCartWithProduct();
                         break;
                     case 2:
-                       addProduct();
+                        addProduct();
                         break;
                     case 3:
                         showCart();
                         break;
                     case 4:
-
-                        //  sumOfAllProducts();
+                        sumOfProductsInCart();
                         break;
                     case 5:
-                        //  removeProduct();
+                        removeProductFromCart();
                         break;
                     case 6:
                         return;
@@ -56,8 +50,7 @@ public class ShoppingCartConsoleUI {
         }
     }
 
-
-    private void createCart() {
+    private void createCartWithProduct() {
         ShoppingCart shoppingCart = new ShoppingCart();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter cart name:");
@@ -68,81 +61,58 @@ public class ShoppingCartConsoleUI {
     }
 
     public void addProduct() {
-        Product product = new Product();
-       // ShoppingCart shoppingCart = new ShoppingCart();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter product name :");
-        String productName = scanner.nextLine();
-         cartService.addProductInCart(productName,product);
-
-        // System.out.println("Product name : " + name );
+        Scanner scanner2 = new Scanner(System.in);
+        System.out.println("enter cart name where you want put product");
+        String name = scanner.nextLine();
+        ShoppingCart shoppingCart = cartService.findCartByName(name);
+        System.out.println("enter product name");
+        String productName = scanner2.nextLine();
+        cartService.addProductInCart(productName, shoppingCart);
     }
-
 
     public void showCart() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1. show all carts");
-        System.out.println("2. choose cart from id");
+        System.out.println("2. choose cart from name");
         System.out.println("3. exit");
         int userInput = scanner.nextInt();
         switch (userInput) {
             case 1:
-                //  showAllCarts();
-
+                showAllCarts();
                 break;
             case 2:
-                showCartById();
+                showCartByName();
                 break;
             case 3:
-
                 return;
         }
     }
 
-    // public void showAllCarts() {
-    //    //ShoppingCart shoppingCart = new ShoppingCart();
-    //   System.out.println(cartService.showCarts());
-    // }
+    public void showAllCarts() {
+        cartService.showCarts();
+    }
 
-    public void showCartById() {
-        ShoppingCart shoppingCart = new ShoppingCart();
+    public void showCartByName() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter id: ");
-        int id = scanner.nextInt();
-        //   Object aaa = cartService.findCartById(id);
-        //  System.out.println("Response: " + aaa);
+        System.out.println("Enter name: ");
+        String name = scanner.nextLine();
+        ShoppingCart response = cartService.findCartByName(name);
+        System.out.println("Response: " + response);
+    }
+
+    public void sumOfProductsInCart() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter cart name: ");
+        String name = scanner.nextLine();
+        ShoppingCart shoppingCart = cartService.findCartByName(name);
+        cartService.getPrice(shoppingCart);
+    }
+
+    public void removeProductFromCart() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter cart name ");
+        String name = scanner.nextLine();
+        cartService.removeCartByname(name);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-        public void removeProduct () {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter product id :");
-            Long id = scanner.nextLong();
-            Product findedProduct = cartService.removeProductByName(id);
-            System.out.println("Enter product name :");
-            String name = scanner.nextLine();
-            String findedProduct = cartService.removeProductByName(name);
-            System.out.println("Remove product : " + findedProduct);
-        }
-
-
-        public BigDecimal sumOfAllProducts () {
-        }
-    }*/
-
-
-
-

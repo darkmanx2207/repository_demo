@@ -6,13 +6,14 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 public class ProductInMemoryRepository {
 
     private Long productIdSequence = 0L;
 
-    public Map<Long, Product> database = new HashMap<>();
+    private Map<Long, Product> database = new HashMap<>();
 
     public Product create(Product product) {
         product.setId(productIdSequence);
@@ -30,4 +31,9 @@ public class ProductInMemoryRepository {
                 .anyMatch(product -> product.getName().equalsIgnoreCase(name));
     }
 
+    public Optional<Product> findByName(String name) {
+        return database.values().stream()
+                .filter(product -> product.getName().equals(name))
+                .findFirst();
+    }
 }

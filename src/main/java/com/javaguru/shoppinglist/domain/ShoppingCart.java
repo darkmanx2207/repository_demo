@@ -2,22 +2,29 @@ package com.javaguru.shoppinglist.domain;
 
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+
 @Component
 public class ShoppingCart {
     private String name;
     private Long id;
-    private Product cartProductList;
+    private List<Product> addProducts = new ArrayList<>();
 
-    public void setCartProductList(Product cartProductList) {
-        this.cartProductList = cartProductList;
+    public boolean addProduct(Product product) {
+        return addProducts.add(product);
     }
-//public Product add(Product product){
- //   return cartProductList;
-//}
 
+    public void sumOfAllProducts() {
+        BigDecimal count = BigDecimal.ZERO;
+        for (Product list : addProducts) {
+            count = count.add(list.getActualPrice());
+        }
+        System.out.println("sum of all products cost is " + count);
+    }
 
     public String getName() {
         return name;
@@ -34,19 +41,20 @@ public class ShoppingCart {
     public void setId(Long id) {
         this.id = id;
     }
-/*
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ShoppingCart that = (ShoppingCart) o;
-        return id == that.id &&
-                Objects.equals(name, that.name);
+        return Objects.equals(name, that.name) &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(addProducts, that.addProducts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, id);
+        return Objects.hash(name, id, addProducts);
     }
 
     @Override
@@ -54,30 +62,7 @@ public class ShoppingCart {
         return "ShoppingCart{" +
                 "name='" + name + '\'' +
                 ", id=" + id +
-                '}';
-    }*/
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ShoppingCart that = (ShoppingCart) o;
-        return id == that.id &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(cartProductList, that.cartProductList);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, id, cartProductList);
-    }
-
-    @Override
-    public String toString() {
-        return "ShoppingCart{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                ", cartProductList=" + cartProductList +
+                ", addProduct=" + addProducts +
                 '}';
     }
 }

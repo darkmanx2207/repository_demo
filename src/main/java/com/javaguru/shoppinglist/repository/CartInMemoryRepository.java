@@ -1,6 +1,5 @@
 package com.javaguru.shoppinglist.repository;
 
-import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.domain.ShoppingCart;
 import org.springframework.stereotype.Component;
 
@@ -17,17 +16,24 @@ public class CartInMemoryRepository {
         shoppingCart.setId(cartId);
         cart.add(shoppingCart);
         cartId++;
-        System.out.println(cart);//
         return shoppingCart;
     }
 
-
-    public Product addProduct(ShoppingCart shoppingCart,Product product) {
-        cart.add(shoppingCart);
-        return product;
-    }
-    public List<ShoppingCart> base(){
-        return cart;
+    public void showShoppingCart() {
+        System.out.println(cart);
     }
 
+    public ShoppingCart findByName(String name) {
+        return cart.stream().filter(shoppingCart -> name.equals(shoppingCart.getName())).findAny().orElse(null);
+    }
+
+    public String removeCartByName(String name) {
+        cart.removeIf(s -> s.getName().equals(name));
+        return name;
+    }
+
+    public boolean existByName(String name) {
+        return cart.stream()
+                .anyMatch(shoppingCart -> shoppingCart.getName().equalsIgnoreCase(name));
+    }
 }

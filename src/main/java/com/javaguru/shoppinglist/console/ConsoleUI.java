@@ -14,10 +14,12 @@ import java.util.Scanner;
 public class ConsoleUI {
 
     private final ProductService productService;
+    private final ShoppingCartConsoleUI shoppingCartConsoleUI;
 
     @Autowired
-    public ConsoleUI(ProductService productService) {
+    public ConsoleUI(ProductService productService, ShoppingCartConsoleUI shoppingCartConsoleUI) {
         this.productService = productService;
+        this.shoppingCartConsoleUI = shoppingCartConsoleUI;
     }
 
     public void execute() {
@@ -26,7 +28,8 @@ public class ConsoleUI {
             try {
                 System.out.println("1. Find by ID");
                 System.out.println("2. Create Product");
-                System.out.println("3. Exit");
+                System.out.println("3. Create Shopping cart");
+                System.out.println("4. Exit");
                 int userInput = scanner.nextInt();
                 switch (userInput) {
                     case 1:
@@ -36,6 +39,9 @@ public class ConsoleUI {
                         createProduct();
                         break;
                     case 3:
+
+                        shoppingCartConsoleUI.executeShoppingCart();
+                    case 4:
                         return;
                 }
             } catch (Exception e) {
@@ -79,7 +85,7 @@ public class ConsoleUI {
         return description;
     }
 
-    public void createProduct() {
+    private void createProduct() {
         Product product = new Product();
         product.setName(readProductName());
         product.setPrice(readProductPrice());
@@ -95,11 +101,11 @@ public class ConsoleUI {
         }
     }
 
-    public void findProduct() {
+    private void findProduct() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter id: ");
         Long id = scanner.nextLong();
-        Product response = productService.findProductbyId(id);
+        Product response = productService.findProductById(id);
         System.out.println("Response: " + response);
     }
 }

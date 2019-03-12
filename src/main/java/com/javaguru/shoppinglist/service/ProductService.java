@@ -24,7 +24,12 @@ public class ProductService {
         return createdProduct.getId();
     }
 
-    public Product findProductbyId(Long id) {
+    public Product findProductById(Long id) {
         return repository.findBy(id);
+    }
+
+    Product findByName(String name) {
+        return repository.findByName(name)
+                .orElseThrow(() -> new IllegalArgumentException("product not found"));
     }
 }

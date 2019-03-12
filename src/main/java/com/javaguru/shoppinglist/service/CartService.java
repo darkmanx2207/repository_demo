@@ -26,10 +26,9 @@ public class CartService {
         return createdCart.getId();
     }
 
-    public String addProductInCart(String name, ShoppingCart shoppingCart) {
+    public void addProductInCart(String name, ShoppingCart shoppingCart) {
         Product product = productService.findByName(name);
         shoppingCart.addProduct(product);
-        return name;
     }
 
     public void showCarts() {
@@ -44,7 +43,7 @@ public class CartService {
         shoppingCart.sumOfAllProducts();
     }
 
-    public String removeCartByname(String name) {
-        return memoryRepository.removeCartByName(name);
+    public void removeCartByName(String name) {
+        memoryRepository.removeCartByName(name);
     }
 }

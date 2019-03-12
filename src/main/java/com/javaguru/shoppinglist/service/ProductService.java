@@ -28,7 +28,7 @@ public class ProductService {
         return repository.findBy(id);
     }
 
-    public Product findByName(String name) {
+    Product findByName(String name) {
         return repository.findByName(name)
                 .orElseThrow(() -> new IllegalArgumentException("product not found"));
     }

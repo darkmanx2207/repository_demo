@@ -14,7 +14,7 @@ public class ShoppingCartConsoleUI {
         this.cartService = cartService;
     }
 
-    public void executeShoppingCart() {
+    void executeShoppingCart() {
         while (true) {
             try {
                 Scanner scanner = new Scanner(System.in);
@@ -60,7 +60,7 @@ public class ShoppingCartConsoleUI {
         System.out.println("Shopping carts: " + response);
     }
 
-    public void addProduct() {
+    private void addProduct() {
         Scanner scanner = new Scanner(System.in);
         Scanner scanner2 = new Scanner(System.in);
         System.out.println("enter cart name where you want put product");
@@ -71,7 +71,7 @@ public class ShoppingCartConsoleUI {
         cartService.addProductInCart(productName, shoppingCart);
     }
 
-    public void showCart() {
+    private void showCart() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1. show all carts");
         System.out.println("2. choose cart from name");
@@ -85,15 +85,14 @@ public class ShoppingCartConsoleUI {
                 showCartByName();
                 break;
             case 3:
-                return;
         }
     }
 
-    public void showAllCarts() {
+    private void showAllCarts() {
         cartService.showCarts();
     }
 
-    public void showCartByName() {
+    private void showCartByName() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter name: ");
         String name = scanner.nextLine();
@@ -101,7 +100,7 @@ public class ShoppingCartConsoleUI {
         System.out.println("Response: " + response);
     }
 
-    public void sumOfProductsInCart() {
+    private void sumOfProductsInCart() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter cart name: ");
         String name = scanner.nextLine();
@@ -109,10 +108,10 @@ public class ShoppingCartConsoleUI {
         cartService.getPrice(shoppingCart);
     }
 
-    public void removeProductFromCart() {
+    private void removeProductFromCart() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter cart name ");
         String name = scanner.nextLine();
-        cartService.removeCartByname(name);
+        cartService.removeCartByName(name);
     }
 }

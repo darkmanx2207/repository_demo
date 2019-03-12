@@ -8,9 +8,9 @@ import java.util.*;
 @Component
 public class CartInMemoryRepository {
 
-    public List<ShoppingCart> cart = new ArrayList<>();
+    private List<ShoppingCart> cart = new ArrayList<>();
 
-    private Long cartId = 1l;
+    private Long cartId = 1L;
 
     public ShoppingCart create(ShoppingCart shoppingCart) {
         shoppingCart.setId(cartId);
@@ -27,9 +27,8 @@ public class CartInMemoryRepository {
         return cart.stream().filter(shoppingCart -> name.equals(shoppingCart.getName())).findAny().orElse(null);
     }
 
-    public String removeCartByName(String name) {
+    public void removeCartByName(String name) {
         cart.removeIf(s -> s.getName().equals(name));
-        return name;
     }
 
     public boolean existByName(String name) {

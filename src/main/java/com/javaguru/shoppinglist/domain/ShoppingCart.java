@@ -14,8 +14,8 @@ public class ShoppingCart {
     private Long id;
     private List<Product> addProducts = new ArrayList<>();
 
-    public boolean addProduct(Product product) {
-        return addProducts.add(product);
+    public void addProduct(Product product) {
+        addProducts.add(product);
     }
 
     public void sumOfAllProducts() {

@@ -85,7 +85,7 @@ public class ConsoleUI {
         return description;
     }
 
-    public void createProduct() {
+    private void createProduct() {
         Product product = new Product();
         product.setName(readProductName());
         product.setPrice(readProductPrice());
@@ -101,7 +101,7 @@ public class ConsoleUI {
         }
     }
 
-    public void findProduct() {
+    private void findProduct() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter id: ");
         Long id = scanner.nextLong();

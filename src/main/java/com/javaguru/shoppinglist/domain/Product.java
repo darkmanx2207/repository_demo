@@ -12,7 +12,7 @@ public class Product {
     private BigDecimal discount;
     private ProductCategory productCategory;
 
-    public BigDecimal getActualPrice() {
+    BigDecimal getActualPrice() {
         return actualPrice;
     }
 
@@ -65,9 +65,8 @@ public class Product {
         this.price = price;
     }
 
-    public BigDecimal discountPrice() {
+    public void discountPrice() {
         actualPrice = price.subtract(price.multiply(discount).divide(BigDecimal.valueOf(100)));
-        return price;
     }
 
     @Override

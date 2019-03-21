@@ -1,4 +1,4 @@
-package com.javaguru.shoppinglist.repository;
+package com.javaguru.shoppinglist.repository.productRepository;
 
 import com.javaguru.shoppinglist.domain.Product;
 
@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-@Component
-public class ProductInMemoryRepository {
+//@Component
+public class ProductInMemoryRepository implements ProductRepository {
 
     private Long productIdSequence = 0L;
 
@@ -22,8 +22,8 @@ public class ProductInMemoryRepository {
         return product;
     }
 
-    public Product findBy(Long id) {
-        return database.get(id);
+    public Optional<Product> findBy(Long id) {
+        return Optional.ofNullable(database.get(id));
     }
 
     public boolean existByName(String name) {

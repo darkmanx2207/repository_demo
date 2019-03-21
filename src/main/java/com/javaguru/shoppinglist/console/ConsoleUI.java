@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.Scanner;
 
 @Component
@@ -16,7 +17,7 @@ public class ConsoleUI {
     private final ProductService productService;
     private final ShoppingCartConsoleUI shoppingCartConsoleUI;
 
-    @Autowired
+@Autowired
     public ConsoleUI(ProductService productService, ShoppingCartConsoleUI shoppingCartConsoleUI) {
         this.productService = productService;
         this.shoppingCartConsoleUI = shoppingCartConsoleUI;
@@ -105,7 +106,7 @@ public class ConsoleUI {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter id: ");
         Long id = scanner.nextLong();
-        Product response = productService.findProductById(id);
+        Optional<Product> response = productService.findProductById(id);
         System.out.println("Response: " + response);
     }
 }

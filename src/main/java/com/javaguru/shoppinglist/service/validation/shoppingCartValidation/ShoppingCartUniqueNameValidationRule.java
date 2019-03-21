@@ -1,7 +1,7 @@
 package com.javaguru.shoppinglist.service.validation.shoppingCartValidation;
 
 import com.javaguru.shoppinglist.domain.ShoppingCart;
-import com.javaguru.shoppinglist.repository.CartInMemoryRepository;
+import com.javaguru.shoppinglist.repository.cartRepository.CartInMemoryRepository;
 import com.javaguru.shoppinglist.service.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

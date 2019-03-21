@@ -1,4 +1,4 @@
-package com.javaguru.shoppinglist.repository;
+package com.javaguru.shoppinglist.repository.cartRepository;
 
 import com.javaguru.shoppinglist.domain.ShoppingCart;
 import org.springframework.stereotype.Component;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-public class CartInMemoryRepository {
+public class CartInMemoryRepository implements CartRepository{
 
     private List<ShoppingCart> cart = new ArrayList<>();
 

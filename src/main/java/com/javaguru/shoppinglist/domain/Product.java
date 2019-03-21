@@ -12,8 +12,12 @@ public class Product {
     private BigDecimal discount;
     private ProductCategory productCategory;
 
-    BigDecimal getActualPrice() {
+    public BigDecimal getActualPrice() {
         return actualPrice;
+    }
+
+    public void setActualPrice(BigDecimal actualPrice) {
+        this.actualPrice = actualPrice;
     }
 
     public String getDescription() {
@@ -31,7 +35,6 @@ public class Product {
     public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
     }
-
 
     public BigDecimal getDiscount() {
         return discount;

@@ -1,14 +1,8 @@
 package com.javaguru.shoppinglist.domain;
 
-import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
-@Component
 public class ShoppingCart {
     private String name;
     private Long id;

@@ -1,7 +1,7 @@
 package com.javaguru.shoppinglist.service;
 
 import com.javaguru.shoppinglist.domain.Product;
-import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
+import com.javaguru.shoppinglist.repository.productRepository.ProductInMemoryRepository;
 import com.javaguru.shoppinglist.service.validation.ProductValidationService;
 
 import static org.mockito.Mockito.verify;

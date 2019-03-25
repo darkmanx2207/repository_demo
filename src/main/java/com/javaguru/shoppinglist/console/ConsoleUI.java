@@ -17,7 +17,7 @@ public class ConsoleUI {
     private final ProductService productService;
     private final ShoppingCartConsoleUI shoppingCartConsoleUI;
 
-@Autowired
+    @Autowired
     public ConsoleUI(ProductService productService, ShoppingCartConsoleUI shoppingCartConsoleUI) {
         this.productService = productService;
         this.shoppingCartConsoleUI = shoppingCartConsoleUI;

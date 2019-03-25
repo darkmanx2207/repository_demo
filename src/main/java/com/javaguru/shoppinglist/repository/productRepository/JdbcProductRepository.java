@@ -14,7 +14,7 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+//@Component
 public class JdbcProductRepository implements ProductRepository {
 
     private final JdbcTemplate jdbcTemplate;

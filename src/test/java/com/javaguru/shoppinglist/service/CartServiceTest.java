@@ -1,7 +1,7 @@
 package com.javaguru.shoppinglist.service;
 
 import com.javaguru.shoppinglist.domain.ShoppingCart;
-import com.javaguru.shoppinglist.repository.CartInMemoryRepository;
+import com.javaguru.shoppinglist.repository.cartRepository.CartInMemoryRepository;
 import com.javaguru.shoppinglist.service.validation.shoppingCartValidation.ShoppingCartValidationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,7 +1,5 @@
 package com.javaguru.shoppinglist.domain;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -12,8 +10,7 @@ public class Product {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native",strategy = "native")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "name")
     private String name;

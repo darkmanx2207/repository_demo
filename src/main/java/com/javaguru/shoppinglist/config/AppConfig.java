@@ -1,13 +1,10 @@
 package com.javaguru.shoppinglist.config;
 
+import com.javaguru.shoppinglist.domain.Product;
 import org.apache.commons.dbcp.BasicDataSource;
-
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
@@ -22,6 +19,7 @@ import java.util.Properties;
 @ComponentScan(basePackages = "com.javaguru.shoppinglist")
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
+@Import({Product.class})
 public class AppConfig {
 
     @Bean
@@ -68,7 +66,7 @@ public class AppConfig {
 
     @Bean
     public SessionFactory sessionFactory(DataSource dataSource,
-                                         @Value("com.javaguru.shoppinglist") String packagesToScan,
+                                         @Value("${hibernate.packagesToScan}") String packagesToScan,
                                          Properties hibernateProperties) throws Exception {
 
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();

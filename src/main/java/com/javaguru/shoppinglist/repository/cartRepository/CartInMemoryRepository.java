@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-@Component
+//@Component
 public class CartInMemoryRepository implements CartRepository{
 
     private List<ShoppingCart> cart = new ArrayList<>();

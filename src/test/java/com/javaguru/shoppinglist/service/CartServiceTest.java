@@ -1,7 +1,7 @@
 package com.javaguru.shoppinglist.service;
 
 import com.javaguru.shoppinglist.domain.ShoppingCart;
-import com.javaguru.shoppinglist.repository.CartInMemoryRepository;
+import com.javaguru.shoppinglist.repository.cartRepository.CartRepository;
 import com.javaguru.shoppinglist.service.validation.shoppingCartValidation.ShoppingCartValidationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 @RunWith(MockitoJUnitRunner.class)
 public class CartServiceTest {
     @Mock
-    private CartInMemoryRepository cartInMemoryRepository;
+    private CartRepository cartRepository;
     @Mock
     private ShoppingCartValidationService cartService;
     @InjectMocks
@@ -29,7 +29,7 @@ public class CartServiceTest {
     @Test
     public void shouldFindShoppingCart() {
         ShoppingCart shoppingCart = shoppingCart();
-        when(cartInMemoryRepository.create(shoppingCart)).thenReturn(shoppingCart);
+        when(cartRepository.create(shoppingCart)).thenReturn(shoppingCart);
         Long result = victim.createCart(shoppingCart);
         verify(cartService).validate(cartArgumentCaptor.capture());
         ShoppingCart captorResult = cartArgumentCaptor.getValue();

@@ -1,23 +1,29 @@
 package com.javaguru.shoppinglist.domain;
 
-import java.math.BigDecimal;
-import java.util.*;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
+@Entity
+@Table(name = "shoppingcarts")
 public class ShoppingCart {
-    private String name;
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "name")
+    private String name;
+    @ElementCollection
     private List<Product> addProducts = new ArrayList<>();
 
     public void addProduct(Product product) {
         addProducts.add(product);
     }
 
-    public void sumOfAllProducts() {
-        BigDecimal count = BigDecimal.ZERO;
-        for (Product list : addProducts) {
-            count = count.add(list.getActualPrice());
-        }
-        System.out.println("sum of all products cost is " + count);
+    public List<Product> sumOfAllProducts() {
+        return addProducts;
     }
 
     public String getName() {

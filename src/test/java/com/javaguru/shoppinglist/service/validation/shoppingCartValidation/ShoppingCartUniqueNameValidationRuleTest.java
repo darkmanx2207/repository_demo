@@ -1,12 +1,11 @@
 package com.javaguru.shoppinglist.service.validation.shoppingCartValidation;
 
 import com.javaguru.shoppinglist.domain.ShoppingCart;
-import com.javaguru.shoppinglist.repository.CartInMemoryRepository;
+import com.javaguru.shoppinglist.repository.cartRepository.CartRepository;
 import com.javaguru.shoppinglist.service.validation.ValidationException;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 import org.junit.runner.RunWith;
@@ -17,14 +16,14 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ShoppingCartUniqueNameValidationRuleTest {
     @Mock
-    private CartInMemoryRepository cartInMemoryRepository;
+    private CartRepository cartRepository;
     @InjectMocks
     private ShoppingCartUniqueNameValidationRule victim;
     private ShoppingCart shoppingCart = shoppingCart();
 
     @Test
     public void shouldThrowValidationException() {
-        when(cartInMemoryRepository.existByName(shoppingCart.getName()))
+        when(cartRepository.existByName(shoppingCart.getName()))
                 .thenReturn(true);
 
         assertThatThrownBy(() -> victim.validate(shoppingCart))

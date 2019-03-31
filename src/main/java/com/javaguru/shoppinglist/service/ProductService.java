@@ -31,7 +31,7 @@ public class ProductService {
         return createdProduct.getId();
     }
 
-    public Optional<Product> findProductById(Long id) {
+    public Product findProductById(Long id) {
         return repository.findBy(id);
     }
 

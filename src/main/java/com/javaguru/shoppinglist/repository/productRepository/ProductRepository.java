@@ -8,7 +8,7 @@ public interface ProductRepository {
 
     Product create(Product product);
 
-    Optional<Product> findBy(Long id);
+    Product findBy(Long id);
 
     boolean existByName(String name);
 

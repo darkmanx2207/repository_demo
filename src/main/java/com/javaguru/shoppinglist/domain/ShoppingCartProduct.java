@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "shoppingcart_products")
-public class ProductShoppingCart {
+public class ShoppingCartProduct {
 
     @Id
     @Column(name = "id")
@@ -46,7 +46,7 @@ public class ProductShoppingCart {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ProductShoppingCart that = (ProductShoppingCart) o;
+        ShoppingCartProduct that = (ShoppingCartProduct) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(product, that.product) &&
                 Objects.equals(shoppingCart, that.shoppingCart);
@@ -59,7 +59,7 @@ public class ProductShoppingCart {
 
     @Override
     public String toString() {
-        return "ProductShoppingCart{" +
+        return "ShoppingCartProduct{" +
                 "id=" + id +
                 ", product=" + product +
                 ", shoppingCart=" + shoppingCart +

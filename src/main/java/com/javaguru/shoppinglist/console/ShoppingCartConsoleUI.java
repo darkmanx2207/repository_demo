@@ -9,9 +9,11 @@ import java.util.Scanner;
 @Component
 public class ShoppingCartConsoleUI {
     private final CartService cartService;
+    private final AssignProduct assignProduct;
 
-    public ShoppingCartConsoleUI(CartService cartService) {
+    public ShoppingCartConsoleUI(CartService cartService, AssignProduct assignProduct) {
         this.cartService = cartService;
+        this.assignProduct = assignProduct;
     }
 
     void executeShoppingCart() {
@@ -22,8 +24,9 @@ public class ShoppingCartConsoleUI {
                 System.out.println("2. add product");
                 System.out.println("3. show shopping cart");
                 System.out.println("4. total cost of products in cart");
-                System.out.println("5. remove cart");
-                System.out.println("6. exit");
+                System.out.println("5. assign product to shoppingCart");
+                System.out.println("6. remove cart");
+                System.out.println("7. exit");
                 int userInput = scanner.nextInt();
                 switch (userInput) {
                     case 1:
@@ -39,9 +42,12 @@ public class ShoppingCartConsoleUI {
                         sumOfProductsInCart();
                         break;
                     case 5:
-                        removeProductFromCart();
+                        assignProduct.executeAssignProduct();
                         break;
                     case 6:
+                        removeCart();
+                        break;
+                    case 7:
                         return;
                 }
             } catch (Exception e) {
@@ -108,7 +114,7 @@ public class ShoppingCartConsoleUI {
         cartService.getPrice(shoppingCart);
     }
 
-    private void removeProductFromCart() {
+    private void removeCart() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter cart name ");
         String name = scanner.nextLine();

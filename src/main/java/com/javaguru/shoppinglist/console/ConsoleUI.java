@@ -3,12 +3,10 @@ package com.javaguru.shoppinglist.console;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.domain.ProductCategory;
 import com.javaguru.shoppinglist.service.ProductService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 import java.util.Scanner;
 
 @Component
@@ -40,8 +38,8 @@ public class ConsoleUI {
                         createProduct();
                         break;
                     case 3:
-
                         shoppingCartConsoleUI.executeShoppingCart();
+                        break;
                     case 4:
                         return;
                 }
@@ -106,7 +104,7 @@ public class ConsoleUI {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter id: ");
         Long id = scanner.nextLong();
-        Optional<Product> response = productService.findProductById(id);
+        Product response = productService.findProductById(id);
         System.out.println("Response: " + response);
     }
 }

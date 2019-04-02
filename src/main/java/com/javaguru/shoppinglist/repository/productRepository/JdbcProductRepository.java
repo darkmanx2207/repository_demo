@@ -46,14 +46,14 @@ public class JdbcProductRepository implements ProductRepository {
     }
 
     @Override
-    public Optional<Product> findBy(Long id) {
+    public Product findBy(Long id) {
         String query = "select * from products where id= " + id;
         List<Product> products = jdbcTemplate.query(query,
                 new BeanPropertyRowMapper(Product.class));
         if (!products.isEmpty()) {
-            return Optional.ofNullable(products.get(0));
+            return products.get(0);
         }
-        return Optional.empty();
+        return products.get(0);
     }
 
     @Override

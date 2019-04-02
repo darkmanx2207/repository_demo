@@ -21,8 +21,8 @@ public class ProductInMemoryRepository implements ProductRepository {
         return product;
     }
 
-    public Optional<Product> findBy(Long id) {
-        return Optional.ofNullable(database.get(id));
+    public Product findBy(Long id) {
+        return database.get(id);
     }
 
     public boolean existByName(String name) {

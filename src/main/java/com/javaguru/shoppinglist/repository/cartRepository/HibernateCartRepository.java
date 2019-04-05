@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 @Profile("hibernate")
 @Transactional
@@ -21,30 +24,35 @@ public class HibernateCartRepository implements CartRepository {
     }
 
     @Override
-    public ShoppingCart create(ShoppingCart shoppingCart) {
+    public Long create(ShoppingCart shoppingCart) {
         sessionFactory.getCurrentSession().save(shoppingCart);
-        return shoppingCart;
+        return shoppingCart.getId();
     }
 
     @Override
-    public void showShoppingCart() {
-        sessionFactory.getCurrentSession().createCriteria(ShoppingCart.class).list();
+    public List<ShoppingCart> showShoppingCart() {
+        return sessionFactory.getCurrentSession().createCriteria(ShoppingCart.class).list();
     }
 
     @Override
-    public ShoppingCart findByName(String name) {
+    public Optional<ShoppingCart> findCartByName(String name) {
         ShoppingCart shoppingCart = (ShoppingCart) sessionFactory.getCurrentSession().createCriteria(ShoppingCart.class)
                 .add(Restrictions.eq("name", name))
                 .uniqueResult();
-        return shoppingCart;
+        return Optional.ofNullable(shoppingCart);
     }
 
     @Override
-    public void removeCartByName(String name) {
+    public Optional<ShoppingCart> findCartById(Long id) {
         ShoppingCart shoppingCart = (ShoppingCart) sessionFactory.getCurrentSession().createCriteria(ShoppingCart.class)
-                .add(Restrictions.eq("name", name))
+                .add(Restrictions.eq("id", id))
                 .uniqueResult();
-        sessionFactory.getCurrentSession().delete(name, shoppingCart);
+        return Optional.ofNullable(shoppingCart);
+    }
+
+    @Override
+    public void delete(ShoppingCart shoppingCart) {
+        sessionFactory.getCurrentSession().delete(shoppingCart);
     }
 
     @Override

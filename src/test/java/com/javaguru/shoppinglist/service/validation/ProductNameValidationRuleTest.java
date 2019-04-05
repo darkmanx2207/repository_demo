@@ -4,15 +4,16 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.javaguru.shoppinglist.domain.Product;
 
+import com.javaguru.shoppinglist.dto.ProductDTO;
 import org.junit.Test;
 
 public class ProductNameValidationRuleTest {
     private ProductNameValidationRule victim = new ProductNameValidationRule();
-    private Product input;
+    private ProductDTO input;
 
     @Test
     public void shouldThrowValidationException() {
-        input = product("dd");
+        input = productDTO("dd");
 
         assertThatThrownBy(() -> victim.validate(input))
                 .isInstanceOf(ValidationException.class)
@@ -21,16 +22,16 @@ public class ProductNameValidationRuleTest {
 
     @Test
     public void shouldThrowProductNullException() {
-        input = product(null);
+        input = productDTO(null);
 
         assertThatThrownBy(() -> victim.checkNotNull(input))
                 .isInstanceOf(ValidationException.class)
                 .hasMessage("Product name must be not null.");
     }
 
-    private Product product(String name) {
-        Product product = new Product();
-        product.setName(name);
-        return product;
+    private ProductDTO productDTO(String name) {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setName(name);
+        return productDTO;
     }
 }

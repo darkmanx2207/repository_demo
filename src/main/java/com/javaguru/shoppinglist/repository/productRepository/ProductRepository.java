@@ -2,15 +2,20 @@ package com.javaguru.shoppinglist.repository.productRepository;
 
 import com.javaguru.shoppinglist.domain.Product;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepository {
 
-    Product create(Product product);
+    Long create(Product product);
 
-    Product findBy(Long id);
+    Optional<Product> findProductById(Long id);
+
+    Optional<Product> findProductByName(String name);
 
     boolean existByName(String name);
 
-    Optional<Product> findByName(String name);
+    List<Product> showAllProducts();
+
+    void delete(Product product);
 }

@@ -2,15 +2,20 @@ package com.javaguru.shoppinglist.repository.cartRepository;
 
 import com.javaguru.shoppinglist.domain.ShoppingCart;
 
+import java.util.List;
+import java.util.Optional;
+
 public interface CartRepository {
 
-    ShoppingCart create(ShoppingCart shoppingCart);
+    Long create(ShoppingCart shoppingCart);
 
-    void showShoppingCart();
+    Optional<ShoppingCart> findCartById(Long id);
 
-    ShoppingCart findByName(String name);
+    List<ShoppingCart> showShoppingCart();
 
-    void removeCartByName(String name);
+    Optional<ShoppingCart> findCartByName(String name);
 
     boolean existByName(String name);
+
+    void delete(ShoppingCart shoppingCart);
 }

@@ -3,6 +3,7 @@ package com.javaguru.shoppinglist.dto;
 import com.javaguru.shoppinglist.domain.ProductCategory;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class ProductDTO {
     private Long id;
@@ -80,5 +81,48 @@ public class ProductDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    public void discountPrice() {
+        actualPrice = price.subtract(price.multiply(discount).divide(BigDecimal.valueOf(100)));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductDTO that = (ProductDTO) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(price, that.price) &&
+                Objects.equals(actualPrice, that.actualPrice) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(discount, that.discount) &&
+                productCategory == that.productCategory;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, price, actualPrice, description, discount, productCategory);
+    }
+
+    @Override
+    public String toString() {
+        return "ProductDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", actualPrice=" + actualPrice +
+                ", description='" + description + '\'' +
+                ", discount=" + discount +
+                ", productCategory=" + productCategory +
+                '}';
+    }
+
+    public interface Update {
+        // empty interface
+    }
+
+    public interface Create {
+        // empty interface
     }
 }

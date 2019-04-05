@@ -1,48 +1,58 @@
 package com.javaguru.shoppinglist.service.validation;
-/*
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.domain.ProductCategory;
-import com.javaguru.shoppinglist.repository.productRepository.ProductInMemoryRepository;
-
+import com.javaguru.shoppinglist.dto.ProductDTO;
+import com.javaguru.shoppinglist.repository.productRepository.ProductRepository;
 import org.junit.Test;
-
-import static org.mockito.Mockito.when;
-
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ProductUniqueNameValidationRuleTest {
     @Mock
-    private ProductInMemoryRepository productInMemoryRepository;
+    private ProductRepository hibernateProductRepository;
+
+    @Spy
     @InjectMocks
     private ProductUniqueNameValidationRule victim;
-    private Product product = product();
+
+    private ProductDTO productDTO = productDTO();
 
     @Test
     public void shouldThrowException() {
-        when(productInMemoryRepository.existByName(product.getName()))
+        when(hibernateProductRepository.existByName(productDTO.getName()))
                 .thenReturn(true);
 
-        assertThatThrownBy(() -> victim.validate(product()))
+        assertThatThrownBy(() -> victim.validate(productDTO))
                 .isInstanceOf(ValidationException.class)
                 .hasMessage("Product name must be unique.");
     }
 
-    private Product product() {
-        Product product = new Product();
-        product.setName("John");
-        product.setDiscount(BigDecimal.valueOf(2));
-        product.setDescription("Java guru level 2");
-        product.setPrice(BigDecimal.valueOf(20));
-        product.setId(1L);
-        product.setProductCategory(ProductCategory.MILK);
-        return product;
+    @Test
+    public void shouldValidateSuccess() {
+        when(hibernateProductRepository.existByName(productDTO.getName()))
+                .thenReturn(false);
+
+        victim.validate(productDTO);
     }
-}         */
+
+    private ProductDTO productDTO() {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setName("John");
+        productDTO.setDiscount(BigDecimal.valueOf(2));
+        productDTO.setDescription("Java guru level 2");
+        productDTO.setPrice(BigDecimal.valueOf(20));
+        productDTO.setId(1L);
+        productDTO.setProductCategory(ProductCategory.MILK);
+        return productDTO;
+    }
+}

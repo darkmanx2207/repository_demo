@@ -26,17 +26,17 @@ public class HibernateProductRepository implements ProductRepository {
 
 
     @Override
-    public Product create(Product product) {
+    public Long create(Product product) {
         sessionFactory.getCurrentSession().save(product);
-        return product;
+        return product.getId();
     }
 
     @Override
-    public Product findBy(Long id) {
+    public Optional<Product> findProductById(Long id) {
         Product product = (Product) sessionFactory.getCurrentSession().createCriteria(Product.class)
                 .add(Restrictions.eq("id", id))
                 .uniqueResult();
-        return product;
+        return Optional.ofNullable(product);
     }
 
     @Override
@@ -49,19 +49,18 @@ public class HibernateProductRepository implements ProductRepository {
                 .uniqueResult();
     }
 
-    @Override
-    public Optional<Product> findByName(String name) {
+    public Optional<Product> findProductByName(String name) {
         Product product = (Product) sessionFactory.getCurrentSession().createCriteria(Product.class)
                 .add(Restrictions.eq("name", name))
                 .uniqueResult();
         return Optional.ofNullable(product);
     }
 
-    public List<Product> findAll() {
-        return sessionFactory.getCurrentSession().createCriteria(Product.class)
-                .list();
+    public List<Product> showAllProducts() {
+        return sessionFactory.getCurrentSession().createCriteria(Product.class).list();
     }
 
+    @Override
     public void delete(Product product) {
         sessionFactory.getCurrentSession().delete(product);
     }

@@ -4,6 +4,7 @@ import com.javaguru.shoppinglist.domain.ShoppingCart;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.javaguru.shoppinglist.dto.ShoppingCartDTO;
 import com.javaguru.shoppinglist.service.validation.ValidationException;
 import org.junit.Test;
 
@@ -11,11 +12,11 @@ import static org.junit.Assert.*;
 
 public class ShoppingCartNameValidationRuleTest {
     private ShoppingCartNameValidationRule victim = new ShoppingCartNameValidationRule();
-    private ShoppingCart input;
+    private ShoppingCartDTO input;
 
     @Test
     public void shouldThrowValidationException() {
-        input = shoppingCart("qq");
+        input = shoppingCartDTO("qq");
 
         assertThatThrownBy(() -> victim.validate(input))
                 .isInstanceOf(ValidationException.class)
@@ -24,16 +25,16 @@ public class ShoppingCartNameValidationRuleTest {
 
     @Test
     public void shouldThrowCartNullException() {
-        input = shoppingCart(null);
+        input = shoppingCartDTO(null);
 
         assertThatThrownBy(() -> victim.checkNotNull(input))
                 .isInstanceOf(ValidationException.class)
                 .hasMessage("cart name must be not null.");
     }
 
-    private ShoppingCart shoppingCart(String name) {
-        ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.setName(name);
-        return shoppingCart;
+    private ShoppingCartDTO shoppingCartDTO(String name) {
+        ShoppingCartDTO shoppingCartDTO = new ShoppingCartDTO();
+        shoppingCartDTO.setName(name);
+        return shoppingCartDTO;
     }
 }

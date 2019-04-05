@@ -4,17 +4,18 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.javaguru.shoppinglist.domain.Product;
 
+import com.javaguru.shoppinglist.dto.ProductDTO;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 
 public class ProductDiscountValidationRuleTest {
     private ProductDiscountValidationRule victim = new ProductDiscountValidationRule();
-    private Product input;
+    private ProductDTO input;
 
     @Test
     public void shouldThrowValidationException() {
-        input = product(BigDecimal.valueOf(111));
+        input = productDTO(BigDecimal.valueOf(111));
 
         assertThatThrownBy(() -> victim.validate(input))
                 .isInstanceOf(ValidationException.class)
@@ -23,16 +24,16 @@ public class ProductDiscountValidationRuleTest {
 
     @Test
     public void shouldThrowDiscountValidationException() {
-        input = product(null);
+        input = productDTO(null);
 
         assertThatThrownBy(() -> victim.checkNotNull(input))
                 .isInstanceOf(ValidationException.class)
                 .hasMessage("Product discount must be not null.");
     }
 
-    private Product product(BigDecimal discount) {
-        Product product = new Product();
-        product.setDiscount(discount);
-        return product;
+    private ProductDTO productDTO(BigDecimal discount) {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setDiscount(discount);
+        return productDTO;
     }
 }

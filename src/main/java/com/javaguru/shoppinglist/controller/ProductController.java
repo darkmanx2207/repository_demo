@@ -3,8 +3,13 @@ package com.javaguru.shoppinglist.controller;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.dto.ProductDTO;
 import com.javaguru.shoppinglist.service.ProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/products")
@@ -17,21 +22,30 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> create(@RequestBody ProductDTO productDTO) {
-        Product product = new Product();
-        product.setName(productDTO.getName());
-        product.setDescription(productDTO.getDescription());
-        product.setActualPrice(productDTO.getActualPrice());
-        product.setDiscount(productDTO.getDiscount());
-        product.setPrice(productDTO.getPrice());
-        product.setProductCategory(productDTO.getProductCategory());
-        productService.createProduct(product);
-        return ResponseEntity.ok(product);
+    public ResponseEntity<Void> create(@Validated({ProductDTO.Create.class}) @RequestBody ProductDTO productDTO,
+                                       UriComponentsBuilder builder) {
+        Long id = productService.createProduct(productDTO);
+        return ResponseEntity.created(builder.path("/products/{id}").buildAndExpand(id).toUri()).build();
+    }
+
+    @GetMapping(params = "name")
+    public ProductDTO findProductByName(@RequestParam("name") String name) {
+        return productService.findProductByName(name);
     }
 
     @GetMapping("/{id}")
-    public ProductDTO findTaskById(@PathVariable("id") Long id) {
-        Product product = productService.findProductById(id);
-        return new ProductDTO(product.getId(), product.getName(), product.getPrice(), product.getActualPrice(), product.getDescription(), product.getDiscount(), product.getProductCategory());
+    public ProductDTO findProductById(@PathVariable("id") Long id) {
+        return productService.findProductById(id);
+    }
+
+    @GetMapping
+    public List<Product> showAllProducts() {
+        return productService.showAllProducts();
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        productService.removeProduct(id);
     }
 }

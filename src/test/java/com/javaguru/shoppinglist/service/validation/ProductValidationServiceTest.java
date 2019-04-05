@@ -2,6 +2,7 @@ package com.javaguru.shoppinglist.service.validation;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.javaguru.shoppinglist.dto.ProductDTO;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,9 +35,9 @@ public class ProductValidationServiceTest {
     @Mock
     private ProductPriceValidationRule productPriceValidationRule;
     @Captor
-    private ArgumentCaptor<Product> captor;
+    private ArgumentCaptor<ProductDTO> captor;
     private ProductValidationService victim;
-    private Product input = product();
+    private ProductDTO input = productDTO();
 
     @Before
     public void setUp() {
@@ -60,18 +61,18 @@ public class ProductValidationServiceTest {
         verify(productPriceValidationRule).validate(captor.capture());
         verify(productUniqueNameValidationRule).validate(captor.capture());
 
-        List<Product> resultList = captor.getAllValues();
+        List<ProductDTO> resultList = captor.getAllValues();
         assertThat(resultList).containsOnly(input);
     }
 
-    private Product product() {
-        Product product = new Product();
-        product.setName("John");
-        product.setDiscount(BigDecimal.valueOf(2));
-        product.setDescription("Java guru level 2");
-        product.setPrice(BigDecimal.valueOf(20));
-        product.setId(1L);
-        product.setProductCategory(ProductCategory.MILK);
-        return product;
+    private ProductDTO productDTO() {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setName("John");
+        productDTO.setDiscount(BigDecimal.valueOf(2));
+        productDTO.setDescription("Java guru level 2");
+        productDTO.setPrice(BigDecimal.valueOf(20));
+        productDTO.setId(1L);
+        productDTO.setProductCategory(ProductCategory.MILK);
+        return productDTO;
     }
 }

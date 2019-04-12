@@ -1,7 +1,6 @@
 package com.javaguru.shoppinglist.service.validation;
 
-import com.javaguru.shoppinglist.domain.Product;
-
+import com.javaguru.shoppinglist.dto.ProductDTO;
 import com.javaguru.shoppinglist.repository.productRepository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,8 +15,8 @@ public class ProductUniqueNameValidationRule implements ProductValidationRule {
     }
 
     @Override
-    public void validate(Product product) {
-        if (repository.existByName(product.getName())) {
+    public void validate(ProductDTO productDTO) {
+        if (repository.existByName(productDTO.getName())) {
             throw new ValidationException("Product name must be unique.");
         }
     }

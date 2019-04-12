@@ -1,6 +1,7 @@
 package com.javaguru.shoppinglist.service.validation.shoppingCartValidation;
 
 import com.javaguru.shoppinglist.domain.ShoppingCart;
+import com.javaguru.shoppinglist.dto.ShoppingCartDTO;
 import com.javaguru.shoppinglist.repository.cartRepository.CartRepository;
 import com.javaguru.shoppinglist.service.validation.ValidationException;
 import org.junit.Test;
@@ -19,22 +20,22 @@ public class ShoppingCartUniqueNameValidationRuleTest {
     private CartRepository cartRepository;
     @InjectMocks
     private ShoppingCartUniqueNameValidationRule victim;
-    private ShoppingCart shoppingCart = shoppingCart();
+    private ShoppingCartDTO shoppingCartDTO = shoppingCartDTO();
 
     @Test
     public void shouldThrowValidationException() {
-        when(cartRepository.existByName(shoppingCart.getName()))
+        when(cartRepository.existByName(shoppingCartDTO.getName()))
                 .thenReturn(true);
 
-        assertThatThrownBy(() -> victim.validate(shoppingCart))
+        assertThatThrownBy(() -> victim.validate(shoppingCartDTO))
                 .isInstanceOf(ValidationException.class)
                 .hasMessage("Shopping cart must be unique.");
     }
 
-    private ShoppingCart shoppingCart() {
-        ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.setName("Milk");
-        shoppingCart.setId(1L);
-        return shoppingCart;
+    private ShoppingCartDTO shoppingCartDTO() {
+        ShoppingCartDTO shoppingCartDTO = new ShoppingCartDTO();
+        shoppingCartDTO.setName("Milk");
+        shoppingCartDTO.setId(1L);
+        return shoppingCartDTO;
     }
 }

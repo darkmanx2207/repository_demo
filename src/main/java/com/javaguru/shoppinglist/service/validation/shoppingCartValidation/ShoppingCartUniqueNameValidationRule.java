@@ -1,6 +1,6 @@
 package com.javaguru.shoppinglist.service.validation.shoppingCartValidation;
 
-import com.javaguru.shoppinglist.domain.ShoppingCart;
+import com.javaguru.shoppinglist.dto.ShoppingCartDTO;
 import com.javaguru.shoppinglist.repository.cartRepository.CartRepository;
 import com.javaguru.shoppinglist.service.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,8 @@ public class ShoppingCartUniqueNameValidationRule implements ShoppingCartValidat
     }
 
     @Override
-    public void validate(ShoppingCart shoppingCart) {
-        if (cartRepository.existByName(shoppingCart.getName())) {
+    public void validate(ShoppingCartDTO shoppingCartDTO) {
+        if (cartRepository.existByName(shoppingCartDTO.getName())) {
             throw new ValidationException("Shopping cart must be unique.");
         }
     }

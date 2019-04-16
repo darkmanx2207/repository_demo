@@ -53,13 +53,13 @@ public class CartService {
                 .orElseThrow(() -> new NoSuchElementException("Task not found, id: " + id));
     }
 
-    public void getPrice(ShoppingCart shoppingCart) {
-        BigDecimal count = BigDecimal.ZERO;
-        for (Product list : shoppingCart.sumOfAllProducts()) {
-            count = count.add(list.getActualPrice());
-        }
-        System.out.println("sum of all products cost is " + count);
-    }
+  //  public void getPrice(ShoppingCart shoppingCart) {
+   //     BigDecimal count = BigDecimal.ZERO;
+    //    for (Product list : shoppingCart.sumOfAllProducts()) {
+     //       count = count.add(list.getActualPrice());
+     //   }
+     //   System.out.println("sum of all products cost is " + count);
+   // }
 
     public void removeCart(Long id) {
         cartRepository.findCartById(id)

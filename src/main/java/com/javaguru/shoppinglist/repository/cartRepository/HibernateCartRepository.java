@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Profile("hibernate")
 @Transactional
 public class HibernateCartRepository implements CartRepository {
 

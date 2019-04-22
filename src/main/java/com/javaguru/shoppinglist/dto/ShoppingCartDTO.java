@@ -1,8 +1,5 @@
 package com.javaguru.shoppinglist.dto;
 
-import com.javaguru.shoppinglist.domain.ShoppingCart;
-
-import java.util.List;
 import java.util.Objects;
 
 public class ShoppingCartDTO {
@@ -54,6 +51,7 @@ public class ShoppingCartDTO {
                 ", name='" + name + '\'' +
                 '}';
     }
+
     public interface Update {
         // empty interface
     }

@@ -1,6 +1,5 @@
 package com.javaguru.shoppinglist.service;
 
-import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.dto.ShoppingCartDTO;
 import com.javaguru.shoppinglist.mapper.ShoppingCartConverter;
@@ -9,7 +8,6 @@ import com.javaguru.shoppinglist.service.validation.shoppingCartValidation.Shopp
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -52,14 +50,6 @@ public class CartService {
                 .map(shoppingCartConverter::convert)
                 .orElseThrow(() -> new NoSuchElementException("Task not found, id: " + id));
     }
-
-  //  public void getPrice(ShoppingCart shoppingCart) {
-   //     BigDecimal count = BigDecimal.ZERO;
-    //    for (Product list : shoppingCart.sumOfAllProducts()) {
-     //       count = count.add(list.getActualPrice());
-     //   }
-     //   System.out.println("sum of all products cost is " + count);
-   // }
 
     public void removeCart(Long id) {
         cartRepository.findCartById(id)

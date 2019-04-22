@@ -65,4 +65,12 @@ public class ShoppingCartProduct {
                 ", shoppingCart=" + shoppingCart +
                 '}';
     }
+
+    public interface Update {
+        // empty interface
+    }
+
+    public interface Create {
+        // empty interface
+    }
 }

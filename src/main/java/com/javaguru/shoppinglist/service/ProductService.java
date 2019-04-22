@@ -1,7 +1,6 @@
 package com.javaguru.shoppinglist.service;
 
 import com.javaguru.shoppinglist.domain.Product;
-import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.dto.ProductDTO;
 import com.javaguru.shoppinglist.mapper.ProductConverter;
 import com.javaguru.shoppinglist.repository.productRepository.ProductRepository;
